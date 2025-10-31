@@ -51,3 +51,13 @@ log:
 ```
 
 **Crontab automation**
+See example multi_folder_cron, make sure you create the logs and localdata dirs
+
+check: [crontabguru](https://crontab.guru/)
+Add the following to: `crontab -e`
+
+Run every 2 hours: `0 */2 * * * /path/to/examples/multi_folder_cron/run_sftp_transfer.sh`
+
+- Use full paths in both bash script and Python script
+- Set proper permissions: chmod +x your_script.sh
+- Test manually first: Run the bash script manually to ensure it works

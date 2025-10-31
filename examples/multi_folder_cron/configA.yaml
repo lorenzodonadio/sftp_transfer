@@ -1,0 +1,18 @@
+sftp:
+  host: "ishm.fe.up.pt"
+  port: 888
+  username: "usr"
+  password: "pwd"
+
+paths:
+  remote_dir: "/home/ldonadio/sdrei_scripts"
+  local_dir: "/home/lorenzo/Desktop/feuphd/sftp_routines/examples/localdata"
+
+files:
+  offset: 7200
+  pattern: "log*.txt"
+  retries: 5
+
+log:
+  file: "/home/lorenzo/Desktop/feuphd/sftp_routines/examples/logs/sftp_transfer.log"
+  interval_days: 7
