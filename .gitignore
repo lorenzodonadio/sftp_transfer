@@ -4,5 +4,7 @@ config.yaml
 __pycache__
 __pycache__/*
 
+localdata
+localdata/*
 examples/localdata/*
 examples/logs/*
