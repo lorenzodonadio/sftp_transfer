@@ -1,6 +1,6 @@
 sftp:
-  host: "ishm.fe.up.pt"
-  port: 888
+  host: "host"
+  port: 0000
   username: "usr"
   password: "pwd"
 
