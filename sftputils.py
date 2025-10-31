@@ -18,7 +18,7 @@ def wait_for_exit_status(channel: paramiko.Channel, timeout=10, check_interval=0
         if channel.exit_status_ready():
             exit_status = channel.recv_exit_status()
             if exit_status != 0:
-                error_msg = channel.recv_stderr(1024).decode().strip()
+                error_msg = channel.recv_stderr(512).decode().strip()
                 logger.error(f"Command failed with exit code {exit_status}: {error_msg}")
                 return False, exit_status, error_msg
 

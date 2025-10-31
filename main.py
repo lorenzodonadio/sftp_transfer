@@ -39,7 +39,7 @@ def main():
         try:
             sesh = transport.open_session()
             sesh.exec_command("date +%s")
-            remote_date = int(sesh.recv(1024))  # secoonds since last epoch
+            remote_date = int(sesh.recv(30))  # secoonds since last epoch
             sesh.close()
             if abs(remote_date - now()) > 3600:
                 err = f"Local vs remote time differente too big (1h): local: {now()} remote: {remote_date}"
