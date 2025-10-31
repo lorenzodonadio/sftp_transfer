@@ -41,6 +41,7 @@ def main():
             sesh.exec_command("date +%s")
             remote_date = int(sesh.recv(30))  # secoonds since last epoch
             sesh.close()
+            logger.info(f"Remote Date: {remote_date} s")
             if abs(remote_date - now()) > 3600:
                 err = f"Local vs remote time differente too big (1h): local: {now()} remote: {remote_date}"
                 return logger.error(err)
