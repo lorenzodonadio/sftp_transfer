@@ -1,8 +1,8 @@
 sftp:
-  host: "host"
-  port: 0000
-  username: "usr"
-  password: "pwd"
+  host: "ishm.fe.up.pt"
+  port: 888
+  username: "ldonadio"
+  password: "ldonadio2025" # Or use key_path
 
 paths:
   remote_dir: "/home/ldonadio/sdrei_scripts"

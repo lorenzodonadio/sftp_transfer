@@ -35,6 +35,18 @@ def main():
         if sftp is None:
             logger.error("ERROR: Unable to create SFTPClient")
             return
+
+        try:
+            sesh = transport.open_session()
+            sesh.exec_command("date +%s")
+            remote_date = int(sesh.recv(1024))  # secoonds since last epoch
+            sesh.close()
+            if abs(remote_date - now()) > 3600:
+                err = f"Local vs remote time differente too big (1h): local: {now()} remote: {remote_date}"
+                return logger.error(err)
+        except:
+            return logger.error(f"cant read remote date (date +%s), stopping the program")
+
     except Exception as e:
         print(f"Startup Error: {e}")
         sys.exit(1)
@@ -42,6 +54,7 @@ def main():
         sftp.chdir(remote_path)
         local_files = os.listdir(local_path)
         local_file_set = set([f.split(".")[0] for f in local_files])
+
         # remote_files = sftp.listdir(".")
         fattr = sftp.listdir_attr(".")
         # remote file filtering
@@ -53,7 +66,7 @@ def main():
         for i in range(retires):
             ok_files = tar_and_transfer_files(transport, remote_path, rmt_files, local_path)
             rmt_files = [f for f in rmt_files if f not in ok_files]
-            logger.info(f"files: {len(rmt_files)} remaining - {len(ok_files)} OK - {i+1} retry")
+            logger.info(f"files: {len(ok_files)} OK {len(rmt_files)} remaining - {i+1} attempt")
             if len(rmt_files) == 0:
                 break
 
