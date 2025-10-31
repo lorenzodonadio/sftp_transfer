@@ -1,0 +1,8 @@
+*.yaml
+*.log
+
+__pycache__
+__pycache__/*
+
+examples/localdata/*
+examples/logs/*
