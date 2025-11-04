@@ -1,0 +1,10 @@
+sftp:
+  host: "host"
+  port: 0000
+  username: "user"
+  password: "pwd" # Or use key_path
+
+paths:
+  remote_dir: "rmtdir"
+  local_dir: "localdata"
+  pattern: "*"
