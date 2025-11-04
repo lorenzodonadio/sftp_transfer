@@ -72,7 +72,11 @@ def plain_transfer_files(
 
 
 def tar_and_transfer_files(
-    transport: paramiko.Transport, remote_path: str, remote_files: list[str] | str, local_path: str
+    transport: paramiko.Transport,
+    remote_path: str,
+    remote_files: list[str] | str,
+    local_path: str,
+    timeout: int = 5,
 ):
     """
     Tar and transfer files with compression.
@@ -92,7 +96,7 @@ def tar_and_transfer_files(
 
     for rf in remote_files:
         logger.debug(f"Processing file: {rf}")
-        remote_tar = tar_remote_file(transport, remote_path, rf)
+        remote_tar = tar_remote_file(transport, remote_path, rf, timeout)
 
         if remote_tar is None:
             logger.error(f"Failed to tar remote file: {rf}")
@@ -118,7 +122,7 @@ def tar_and_transfer_files(
     return successful_files
 
 
-def tar_remote_file(transport: paramiko.Transport, cwd: str, filename: str):
+def tar_remote_file(transport: paramiko.Transport, cwd: str, filename: str, timeout: int = 5):
     """
     Create tar archive of remote file.
     """
@@ -129,7 +133,7 @@ def tar_remote_file(transport: paramiko.Transport, cwd: str, filename: str):
         logger.debug(f"Creating tar archive: {tarname} for file: {filename}")
 
         sesh = transport.open_session()
-        success, exit_code, error_msg = exec_with_timeout(sesh, tarcmd)
+        success, exit_code, error_msg = exec_with_timeout(sesh, tarcmd, timeout)
         sesh.close()
 
         if not success:

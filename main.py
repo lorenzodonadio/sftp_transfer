@@ -9,6 +9,8 @@ import sys
 import os
 import argparse
 
+TOUT = 60  # timeout seconds for commands
+
 
 def main():
     parser = argparse.ArgumentParser(description="SFTP File Transfer")
@@ -65,7 +67,7 @@ def main():
 
         ok_files = []
         for i in range(retires):
-            ok_files = tar_and_transfer_files(transport, remote_path, rmt_files, local_path)
+            ok_files = tar_and_transfer_files(transport, remote_path, rmt_files, local_path, TOUT)
             rmt_files = [f for f in rmt_files if f not in ok_files]
             logger.info(f"files: {len(ok_files)} OK {len(rmt_files)} remaining - {i+1} attempt")
             if len(rmt_files) == 0:
